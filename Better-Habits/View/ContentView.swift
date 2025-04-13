@@ -15,22 +15,26 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .foregroundStyle(.gray)
                 .opacity(0.2)
-            VStack {
+            VStack(spacing: 0) {
                 Topbar()
                 HStack {
                     Text("Daily Goals")
+                        .font(.title3)
                     Spacer()
                     ZStack {
                         Circle()
-                            .frame(width: 30, height: 30)
+                            .frame(width: 36, height: 36)
                             .foregroundStyle(.gray)
                         Circle()
-                            .frame(width: 24, height: 24)
+                            .frame(width: 30, height: 30)
                             .foregroundStyle(.white)
                         Image(systemName: "chevron.down")
+                            .resizable()
+                            .frame(width: 13, height: 7)
                     }
                 }
                 .padding(.horizontal, 20)
+                .padding(.top)
                 GoalView()
             }
         }

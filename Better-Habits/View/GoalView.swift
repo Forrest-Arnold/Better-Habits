@@ -58,7 +58,6 @@ struct GoalView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
-            .fontWeight(.semibold)
             .padding(8)
         }
         .frame(height: 160)
