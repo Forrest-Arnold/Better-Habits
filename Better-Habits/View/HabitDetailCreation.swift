@@ -16,8 +16,12 @@ struct HabitDetailCreation: View {
     
     var body: some View {
         VStack {
+            CreationTopBar()
             Text("Tracking Type")
             Divider()
+                .background(Color.black)
+                .frame(height: 1)
+                .padding(.vertical, 8)
             Toggle(isOn: $goalSet) {
                 Text("Set a Goal?")
             }
@@ -66,7 +70,33 @@ struct HabitDetailCreation: View {
                     .cornerRadius(8)
             }
             Divider()
-            
+                .background(Color.black)
+                .frame(height: 1)
+                .padding(.vertical, 8)
+            HStack {
+                Button {
+                    
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(.gray)
+                            .opacity(0.2)
+                            .frame(width: 120, height: 60)
+                        Text("Back")
+                    }
+                }
+                Button {
+                    
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundStyle(.gray)
+                            .opacity(0.2)
+                            .frame(width: 120, height: 60)
+                        Text("Next")
+                    }
+                }
+            }
         }
         .foregroundStyle(.black)
     }
