@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Better_HabitsApp: App {
+    @StateObject var habitVM = HabitVM()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(habitVM)
         }
     }
 }

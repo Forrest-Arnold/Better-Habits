@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct CreationTopBar: View {
+    @EnvironmentObject var habitVM: HabitVM
+    
     var body: some View {
         ZStack {
             Rectangle()
-                .foregroundStyle(.pink)
-                .padding(.bottom, 80)
+                .foregroundStyle(habitVM.habitColor)
+                .offset(y: -80)
             VStack(spacing: 30) {
                 HStack {
                     Image(systemName: "xmark.circle")
@@ -33,13 +35,12 @@ struct CreationTopBar: View {
                 }
                 HStack(spacing: 70) {
                     Text("Name")
-                    Text("Color")
                     Text("Goal")
                 }
             }
         }
         .frame(height: 300)
-        .offset(y: -130)
+        .offset(y: -320)
     }
 }
 
