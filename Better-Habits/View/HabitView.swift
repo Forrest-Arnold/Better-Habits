@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GoalView: View {
+struct HabitView: View {
     @ObservedObject var habitVM = HabitVM()
     
     var body: some View {
@@ -69,5 +69,5 @@ struct GoalView: View {
 }
 
 #Preview {
-    GoalView()
+    HabitView()
 }

@@ -36,7 +36,7 @@ struct Topbar: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: GoalCreationView()) {
+                    NavigationLink(destination: HabitCreationView()) {
                         ZStack {
                             Circle()
                                 .frame(width: 40, height: 40)

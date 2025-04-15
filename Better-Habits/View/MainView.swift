@@ -35,7 +35,7 @@ struct MainView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.top)
-                GoalView()
+                HabitView()
             }
         }
     }
