@@ -67,12 +67,27 @@ class HabitVM: ObservableObject {
 }
 
 extension Color {
-    // Generate a random color
     static func random() -> Color {
-        return Color(
+        Color(
             red: Double.random(in: 0...1),
             green: Double.random(in: 0...1),
             blue: Double.random(in: 0...1)
         )
     }
+
+    var isVeryDark: Bool {
+        let uiColor = UIColor(self)
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+
+        uiColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        // Calculate brightness
+        let brightness = (0.299 * red + 0.587 * green + 0.114 * blue)
+        return brightness < 0.4 // much darker threshold
+    }
 }
+
+

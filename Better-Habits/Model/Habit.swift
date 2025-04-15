@@ -12,4 +12,8 @@ struct Habit: Identifiable, Hashable {
     var id = UUID()
     var name: String
     var color: Color
+    
+    var textColor: Color {
+        color.isVeryDark ? .white : .black
+    }
 }

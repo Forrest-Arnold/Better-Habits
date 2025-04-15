@@ -12,16 +12,10 @@ struct GoalCreationView: View {
     @State private var habitName = ""
     var body: some View {
         VStack {
-            Text("New Habit")
-                .font(.title3)
-                .fontWeight(.semibold)
-            HStack(spacing: 30) {
-                Text("Name")
-                Text("Color")
-                Text("Goal")
-            }
-            .foregroundStyle(.gray)
+            // this is not showing up for some reason
+            CreationTopBar()
             Text("What would you like to track?")
+                .padding(.vertical, 6)
                 .fontWeight(.semibold)
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
@@ -32,19 +26,53 @@ struct GoalCreationView: View {
             }
             .frame(width: 200, height: 50)
             ZStack {
+                Divider()
+                    .background(Color.black)
+                    .frame(height: 1)
+                    .padding(.vertical, 18)
                 Text("Try a suggestion...")
                     .background(Rectangle().foregroundStyle(.white))
-                Divider()
             }
             // this is creating an instance of this which may be incorrect
-            PremadeHabitView()
+            PremadeHabitView(habitVM: habitVM)
+            Divider()
+                .background(Color.black)
+                .frame(height: 1)
+                .padding(.vertical, 8)
+            HStack {
+                HStack {
+                    Button {
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(.gray)
+                                .opacity(0.4)
+                                .frame(width: 120, height: 60)
+                            Text("Cancel")
+                        }
+                    }
+                    Button {
+                        
+                    } label: {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(.gray)
+                                .frame(width: 120, height: 60)
+                            Text("Next")
+                        }
+                    }
+                }
+                .foregroundStyle(.black)
+            }
         }
         .navigationBarBackButtonHidden()
+        .padding(10)
     }
 }
 
 struct PremadeHabitView: View {
-    @ObservedObject var habitVM = HabitVM()
+    @ObservedObject var habitVM: HabitVM
     var body: some View {
         HStack {
             Text("Fitness:")
@@ -53,7 +81,7 @@ struct PremadeHabitView: View {
                     ForEach(habitVM.fitnessHabits, id: \.self) { habit in
                         ZStack {
                             Text(habit.name)
-//                                .foregroundStyle()
+                                .foregroundStyle(habit.textColor)
                                 .padding()
                                 .background (
                                     RoundedRectangle(cornerRadius: 8)
@@ -71,6 +99,7 @@ struct PremadeHabitView: View {
                     ForEach(habitVM.healthHabits, id: \.self) { habit in
                         ZStack {
                             Text(habit.name)
+                                .foregroundStyle(habit.textColor)
                                 .padding()
                                 .background (
                                     RoundedRectangle(cornerRadius: 8)
@@ -88,6 +117,7 @@ struct PremadeHabitView: View {
                     ForEach(habitVM.mindHabits, id: \.self) { habit in
                         ZStack {
                             Text(habit.name)
+                                .foregroundStyle(habit.textColor)
                                 .padding()
                                 .background (
                                     RoundedRectangle(cornerRadius: 8)
@@ -105,6 +135,7 @@ struct PremadeHabitView: View {
                     ForEach(habitVM.choresHabits, id: \.self) { habit in
                         ZStack {
                             Text(habit.name)
+                                .foregroundStyle(habit.textColor)
                                 .padding()
                                 .background (
                                     RoundedRectangle(cornerRadius: 8)
@@ -122,6 +153,7 @@ struct PremadeHabitView: View {
                     ForEach(habitVM.reduceHabits, id: \.self) { habit in
                         ZStack {
                             Text(habit.name)
+                                .foregroundStyle(habit.textColor)
                                 .padding()
                                 .background (
                                     RoundedRectangle(cornerRadius: 8)
@@ -137,4 +169,5 @@ struct PremadeHabitView: View {
 
 #Preview {
     GoalCreationView()
+        .environmentObject(HabitVM())
 }

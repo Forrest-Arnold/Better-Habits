@@ -46,4 +46,5 @@ struct CreationTopBar: View {
 
 #Preview {
     CreationTopBar()
+        .environmentObject(HabitVM())
 }
