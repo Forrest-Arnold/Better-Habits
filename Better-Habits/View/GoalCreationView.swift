@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GoalCreationView: View {
+    @ObservedObject var habitVM = HabitVM()
     @State private var habitName = ""
     var body: some View {
         VStack {
@@ -34,6 +35,101 @@ struct GoalCreationView: View {
                 Text("Try a suggestion...")
                     .background(Rectangle().foregroundStyle(.white))
                 Divider()
+            }
+            // this is creating an instance of this which may be incorrect
+            PremadeHabitView()
+        }
+        .navigationBarBackButtonHidden()
+    }
+}
+
+struct PremadeHabitView: View {
+    @ObservedObject var habitVM = HabitVM()
+    var body: some View {
+        HStack {
+            Text("Fitness:")
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(habitVM.fitnessHabits, id: \.self) { habit in
+                        ZStack {
+                            Text(habit.name)
+//                                .foregroundStyle()
+                                .padding()
+                                .background (
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundStyle(habit.color)
+                                )
+                        }
+                    }
+                }
+            }
+        }
+        HStack {
+            Text("Health:")
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(habitVM.healthHabits, id: \.self) { habit in
+                        ZStack {
+                            Text(habit.name)
+                                .padding()
+                                .background (
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundStyle(habit.color)
+                                )
+                        }
+                    }
+                }
+            }
+        }
+        HStack {
+            Text("Mind:")
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(habitVM.mindHabits, id: \.self) { habit in
+                        ZStack {
+                            Text(habit.name)
+                                .padding()
+                                .background (
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundStyle(habit.color)
+                                )
+                        }
+                    }
+                }
+            }
+        }
+        HStack {
+            Text("Chores:")
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(habitVM.choresHabits, id: \.self) { habit in
+                        ZStack {
+                            Text(habit.name)
+                                .padding()
+                                .background (
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundStyle(habit.color)
+                                )
+                        }
+                    }
+                }
+            }
+        }
+        HStack {
+            Text("Reduce:")
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(habitVM.reduceHabits, id: \.self) { habit in
+                        ZStack {
+                            Text(habit.name)
+                                .padding()
+                                .background (
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundStyle(habit.color)
+                                )
+                        }
+                    }
+                }
             }
         }
     }

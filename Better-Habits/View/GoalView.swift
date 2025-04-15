@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct GoalView: View {
+    @ObservedObject var habitVM = HabitVM()
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 10)
@@ -42,16 +44,17 @@ struct GoalView: View {
                         Image(systemName: "plus")
                     }
                 }
+                // Goal progress text
                 Text("Today, 0 / 2 hours")
                     .padding(.leading, 4)
                 Divider()
                 HStack(alignment: .center) {
-                        ForEach(1..<8) { day in
+                    ForEach(habitVM.daysShorter, id: \.self) { day in
                         VStack {
                             Circle()
                                 .foregroundStyle(.pink)
                                 .opacity(0.8)
-                            Text("D-\(day)")
+                            Text(day)
                         }
                     }
                         .padding(.top, 12)

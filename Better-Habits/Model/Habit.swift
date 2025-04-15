@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct Habit: Identifiable {
+struct Habit: Identifiable, Hashable {
     var id = UUID()
     var name: String
-    var color: String
+    var color: Color
 }

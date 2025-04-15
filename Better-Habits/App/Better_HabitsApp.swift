@@ -13,7 +13,7 @@ struct Better_HabitsApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(habitVM)
         }
     }
