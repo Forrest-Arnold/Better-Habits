@@ -43,10 +43,12 @@ struct HabitDetailCreation: View {
     }
 }
 
+
 private extension HabitDetailCreation {
     var colorPicker: some View {
-        ColorPicker("Pick your habit color", selection: $selectedHabit.color)
+        ColorPicker("Pick your habit color", selection: $selectedColor)
             .onChange(of: selectedColor) { newColor in
+                // Sync the selected color with the habit's color
                 selectedHabit.color = newColor
             }
             .padding(.horizontal, 106)
@@ -150,7 +152,7 @@ private extension HabitDetailCreation {
 struct HabitDetailCreation_Previews: PreviewProvider {
     @State static var selectedColor = Color.random()
     @State static var selectedHabit = Habit(name: "Nothing", color: selectedColor)
-
+    
     static var previews: some View {
         HabitDetailCreation(
             selectedHabit: $selectedHabit,

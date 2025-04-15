@@ -105,35 +105,34 @@ struct PremadeHabitView: View {
     
     var body: some View {
         VStack {
-            HabitCategoryView(title: "Fitness", habits: habitVM.fitnessHabits)
-            HabitCategoryView(title: "Health", habits: habitVM.healthHabits)
-            HabitCategoryView(title: "Mind", habits: habitVM.mindHabits)
-            HabitCategoryView(title: "Chores", habits: habitVM.choresHabits)
-            HabitCategoryView(title: "Reduce", habits: habitVM.reduceHabits)
+            HabitCategoryView(title: "Fitness", habits: $habitVM.fitnessHabits)
+            HabitCategoryView(title: "Health", habits: $habitVM.healthHabits)
+            HabitCategoryView(title: "Mind", habits: $habitVM.mindHabits)
+            HabitCategoryView(title: "Chores", habits: $habitVM.choresHabits)
+            HabitCategoryView(title: "Reduce", habits: $habitVM.reduceHabits)
         }
     }
 }
 
 struct HabitCategoryView: View {
     let title: String
-    let habits: [Habit]  // Use this passed-in habits array instead of relying on EnvironmentObject
+    @Binding var habits: [Habit]
 
     var body: some View {
         HStack {
             Text(title + ":")
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(habits.indices, id: \.self) { index in
-                        let habit = habits[index]
+                    ForEach($habits, id: \.self) { $habit in
                         let habitColor = habit.color
 
                         NavigationLink(destination: HabitDetailCreation(
-                            selectedHabit: .constant(habit),  // Bind the selected habit
-                            selectedColor: .constant(habit.color)  // Bind the selected color
+                            selectedHabit: $habit,  // Pass Binding here
+                            selectedColor: $habit.color  // Bind directly to habit color
                         )) {
                             ZStack {
                                 Text(habit.name)
-                                    .foregroundStyle(habit.textColor)  // Assuming habit has a textColor property
+                                    .foregroundStyle(habit.textColor)
                                     .padding()
                                     .background(
                                         RoundedRectangle(cornerRadius: 8)
@@ -147,6 +146,9 @@ struct HabitCategoryView: View {
         }
     }
 }
+
+
+
 
 
 struct HabitCreationView_Previews: PreviewProvider {
