@@ -12,9 +12,9 @@ struct HabitDetailCreation: View {
     @ObservedObject var selectedHabit: Habit
     @State private var goalSet = true
     @State private var leastMostOption = "At Least"
-    @State private var timeOption = "minutes"
-    @State private var tickerValue = 30
-    @State private var dayOption = "Day"
+    @State private var timeOption = "times"
+    @State private var tickerValue = 3
+    @State private var dayOption = "Week"
     
     var body: some View {
         ZStack {
@@ -30,12 +30,15 @@ struct HabitDetailCreation: View {
                 colorPicker
                 trackingType
                 goalSetting
-                stepperSection
-                timePickerSection
+                HStack(spacing: -40) {
+                    stepperSection
+                    timePickerSection
+                }
+                dayPickerSection
                 divider
                 actionButtons
             }
-            .padding(.bottom, 60)
+            .padding(.bottom, 110)
             .foregroundStyle(.black)
         }
         .navigationBarBackButtonHidden()
@@ -45,6 +48,7 @@ struct HabitDetailCreation: View {
 private extension HabitDetailCreation {
     var colorPicker: some View {
         ColorPicker("Pick your habit color", selection: $selectedHabit.color)
+            .padding(.horizontal, 100)
     }
     
     var trackingType: some View {
@@ -78,9 +82,9 @@ private extension HabitDetailCreation {
                         .labelsHidden()
                     Text("\(tickerValue)")
                         .foregroundColor(.black)
-                        .padding(.leading, 8)
+                        .font(.title3)
+                        .padding(.leading, 12)
                 }
-                .padding(.horizontal, 10)
             }
             .frame(maxWidth: .infinity)
         }
@@ -98,7 +102,12 @@ private extension HabitDetailCreation {
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(8)
             }
-            
+        }
+        .padding(.trailing, 70)
+    }
+    
+    var dayPickerSection: some View {
+        HStack {
             Menu {
                 Button("Day") { dayOption = "Day" }
                 Button("Week") { dayOption = "Week" }
