@@ -13,7 +13,7 @@ import SwiftUI
 struct HabitCreationView: View {
     @EnvironmentObject var habitVM: HabitVM
     @State private var habitTextFieldName = ""
-    @State private var habitName = Habit(name: "Nothing", color: Color.random())
+    @State private var habitName = Habit(name: "Nothing", color: Color.random()) // No change here
     @State private var selectedColor = Color.random()
 
     var body: some View {
@@ -23,19 +23,15 @@ struct HabitCreationView: View {
                     currentColor: $selectedColor,
                     showNameView: .constant(false),
                     showGoalView: .constant(true),
-                    habitName: $habitName
+                    habitName: habitName // Binding to habitName is correct here
                 )
                 .environmentObject(habitVM)
                 
                 VStack {
                     headerText
-                    
                     habitNameInput
-                    
                     suggestionText
-                    
                     premadeHabitsView
-                    
                     actionButtons
                 }
                 .navigationBarBackButtonHidden()
@@ -76,7 +72,7 @@ private extension HabitCreationView {
     }
     
     var premadeHabitsView: some View {
-        PremadeHabitView(habitVM: habitVM)
+        PremadeHabitView(habitVM: habitVM) // No change here
     }
     
     var actionButtons: some View {
@@ -101,7 +97,7 @@ private extension HabitCreationView {
 }
 
 struct PremadeHabitView: View {
-    @ObservedObject var habitVM: HabitVM
+    @ObservedObject var habitVM: HabitVM // No change here
     
     var body: some View {
         VStack {
@@ -116,7 +112,7 @@ struct PremadeHabitView: View {
 
 struct HabitCategoryView: View {
     let title: String
-    @Binding var habits: [Habit]
+    @Binding var habits: [Habit] // Correct binding of habits
 
     var body: some View {
         HStack {
@@ -127,8 +123,7 @@ struct HabitCategoryView: View {
                         let habitColor = habit.color
 
                         NavigationLink(destination: HabitDetailCreation(
-                            selectedHabit: $habit,  // Pass Binding here
-                            selectedColor: $habit.color  // Bind directly to habit color
+                            selectedHabit: habit
                         )) {
                             ZStack {
                                 Text(habit.name)
@@ -146,10 +141,6 @@ struct HabitCategoryView: View {
         }
     }
 }
-
-
-
-
 
 struct HabitCreationView_Previews: PreviewProvider {
     @State static var selectedColor = Color.random()

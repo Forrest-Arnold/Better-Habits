@@ -9,8 +9,7 @@ import SwiftUI
 
 struct HabitDetailCreation: View {
     @EnvironmentObject var habitVM: HabitVM
-    @Binding var selectedHabit: Habit
-    @Binding var selectedColor: Color
+    @ObservedObject var selectedHabit: Habit
     @State private var goalSet = true
     @State private var leastMostOption = "At Least"
     @State private var timeOption = "minutes"
@@ -20,10 +19,10 @@ struct HabitDetailCreation: View {
     var body: some View {
         ZStack {
             CreationTopBar(
-                currentColor: $selectedColor,
+                currentColor: $selectedHabit.color,
                 showNameView: .constant(false),
                 showGoalView: .constant(true),
-                habitName: $selectedHabit
+                habitName: selectedHabit
             )
             .environmentObject(habitVM)
             
@@ -43,15 +42,9 @@ struct HabitDetailCreation: View {
     }
 }
 
-
 private extension HabitDetailCreation {
     var colorPicker: some View {
-        ColorPicker("Pick your habit color", selection: $selectedColor)
-            .onChange(of: selectedColor) { newColor in
-                // Sync the selected color with the habit's color
-                selectedHabit.color = newColor
-            }
-            .padding(.horizontal, 106)
+        ColorPicker("Pick your habit color", selection: $selectedHabit.color)
     }
     
     var trackingType: some View {
@@ -150,13 +143,11 @@ private extension HabitDetailCreation {
 }
 
 struct HabitDetailCreation_Previews: PreviewProvider {
-    @State static var selectedColor = Color.random()
-    @State static var selectedHabit = Habit(name: "Nothing", color: selectedColor)
+    @State static var selectedHabit = Habit(name: "Nothing", color: Color.random())
     
     static var previews: some View {
         HabitDetailCreation(
-            selectedHabit: $selectedHabit,
-            selectedColor: $selectedColor
+            selectedHabit: selectedHabit
         )
         .environmentObject(HabitVM())
     }

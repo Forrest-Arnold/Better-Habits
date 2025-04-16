@@ -8,12 +8,29 @@
 import Foundation
 import SwiftUI
 
-struct Habit: Identifiable, Hashable {
+class Habit: Identifiable, ObservableObject, Hashable {
     var id = UUID()
     var name: String
     var color: Color
+    
+    init(name: String, color: Color) {
+        self.name = name
+        self.color = color
+    }
+    
+    static func == (lhs: Habit, rhs: Habit) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     var textColor: Color {
         color.isVeryDark ? .white : .black
     }
 }
+
+
+
+

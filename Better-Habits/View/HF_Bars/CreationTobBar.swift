@@ -12,7 +12,7 @@ struct CreationTopBar: View {
     @Binding var currentColor: Color
     @Binding var showNameView: Bool
     @Binding var showGoalView: Bool
-    @Binding var habitName: Habit
+    @ObservedObject var habitName: Habit  // Use @ObservedObject here to reflect changes to the Habit class
 
     var body: some View {
         ZStack {
@@ -33,7 +33,7 @@ struct CreationTopBar: View {
                             .opacity(0.7)
 
                         if showGoalView {
-                            Text(habitName.name)
+                            Text(habitName.name)  // Display the habit name
                                 .font(.title3)
                                 .fontWeight(.semibold)
                         }
@@ -80,7 +80,7 @@ struct PreviewWrapper: View {
             currentColor: $currentColor,
             showNameView: $showNameView,
             showGoalView: $showGoalView,
-            habitName: $habitName
+            habitName: habitName  // Passing the binding of habitName
         )
         .environmentObject(HabitVM())
     }
