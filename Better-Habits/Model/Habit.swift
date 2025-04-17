@@ -12,6 +12,13 @@ class Habit: Identifiable, ObservableObject, Hashable {
     var id = UUID()
     var name: String
     var color: Color
+    var leastMost = "At Least"
+    var time = "times"
+    var timeNumber = 3
+    var day = "Week"
+    var scheduleHour = 1
+    var scheduleMinute = "00"
+    var scheduleAmPm = "AM"
     
     init(name: String, color: Color) {
         self.name = name

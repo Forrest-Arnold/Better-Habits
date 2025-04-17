@@ -15,14 +15,17 @@ struct HabitCreationView: View {
     @State private var habitTextFieldName = ""
     @State private var habitName = Habit(name: "Nothing", color: Color.random()) // No change here
     @State private var selectedColor = Color.random()
+    
+    // Navigation variables
+    @State private var navigateToDetails = false
 
     var body: some View {
         NavigationStack {
             ZStack {
                 CreationTopBar(
                     currentColor: $selectedColor,
-                    showNameView: .constant(false),
-                    showGoalView: .constant(true),
+                    showNameView: .constant(true),
+                    showGoalView: .constant(false),
                     habitName: habitName // Binding to habitName is correct here
                 )
                 .environmentObject(habitVM)
@@ -78,7 +81,16 @@ private extension HabitCreationView {
     var actionButtons: some View {
         HStack {
             actionButton(label: "Cancel", action: {})
-            actionButton(label: "Next", action: {})
+            
+            NavigationLink(
+                destination: HabitDetailCreation(selectedHabit: habitName).environmentObject(habitVM),
+                isActive: $navigateToDetails
+            ) {
+                actionButton(label: "Next") {
+                    navigateToDetails = true
+                }
+            }
+
         }
         .foregroundStyle(.black)
     }

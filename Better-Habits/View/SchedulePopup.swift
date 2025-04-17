@@ -27,7 +27,13 @@ struct SchedulePopup: View {
             Text("at")
             TimePickerView
             Divider()
+                .padding()
+            SaveOrCancelView
         }
+        .padding()
+        .background(RoundedRectangle(cornerRadius: 20).fill(.white))
+        .shadow(radius: 10)
+        .frame(maxWidth: 350)
     }
 }
 
@@ -43,28 +49,28 @@ private extension SchedulePopup {
     }
     
     var DaysView: some View {
-            HStack {
-                ForEach(habitVM.daysShorter, id: \.self) { day in
-                    Button {
-                        if !selectedDays.contains(day) {
-                            selectedDays.append(day)
-                        } else {
-                            selectedDays.removeAll(where: { $0 == day })
-                        }
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .foregroundStyle(.black)
-                                .opacity(0.8)
-                            Text(day)
-                                .foregroundColor(.white)
-                                .fontWeight(.semibold)
-                        }
-                        .frame(width: 40, height: 40)
+        HStack {
+            ForEach(habitVM.daysShorter, id: \.self) { day in
+                Button {
+                    if !selectedDays.contains(day) {
+                        selectedDays.append(day)
+                    } else {
+                        selectedDays.removeAll(where: { $0 == day })
                     }
+                } label: {
+                    ZStack {
+                        Circle()
+                            .foregroundStyle(.black)
+                            .opacity(0.8)
+                        Text(day)
+                            .foregroundColor(.white)
+                            .fontWeight(.semibold)
+                    }
+                    .frame(width: 40, height: 40)
                 }
             }
         }
+    }
     
     var SelectedDaysView: some View {
         HStack {
@@ -106,6 +112,35 @@ private extension SchedulePopup {
             }
             .pickerStyle(WheelPickerStyle())
             .frame(width: 80, height: 150)
+        }
+    }
+    
+    var SaveOrCancelView: some View {
+        HStack {
+            Button {
+                // Naviagate back to my HabitDetailCreation
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 120, height: 60)
+                        .foregroundStyle(.gray)
+                        .opacity(0.5)
+                    Text("Cancel")
+                        .foregroundStyle(.black)
+                }
+            }
+            
+            Button {
+                // Close popup or navigate back to MainView
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 140, height: 60)
+                        .foregroundStyle(.black)
+                    Text("Save Habit")
+                        .foregroundStyle(.white)
+                }
+            }
         }
     }
 }

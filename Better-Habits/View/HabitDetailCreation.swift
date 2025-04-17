@@ -16,6 +16,10 @@ struct HabitDetailCreation: View {
     @State private var tickerValue = 3
     @State private var dayOption = "Week"
     
+    // Navigation Variables
+    @Environment(\.dismiss) var dismiss
+    @State private var showPopup = false
+    
     var body: some View {
         ZStack {
             CreationTopBar(
@@ -25,24 +29,40 @@ struct HabitDetailCreation: View {
                 habitName: selectedHabit
             )
             .environmentObject(habitVM)
-            
             VStack {
-                colorPicker
-                trackingType
-                goalSetting
-                HStack(spacing: -40) {
-                    stepperSection
-                    timePickerSection
+                VStack {
+                    colorPicker
+                    trackingType
+                    goalSetting
+                    HStack(spacing: -40) {
+                        stepperSection
+                        timePickerSection
+                    }
+                    dayPickerSection
+                    divider
+                    actionButtons
                 }
-                dayPickerSection
-                divider
-                actionButtons
+                .padding(.bottom, 110)
+                .foregroundStyle(.black)
             }
-            .padding(.bottom, 110)
-            .foregroundStyle(.black)
+
+            // Popup view
+            if showPopup {
+                Color.black.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showPopup = false
+                    }
+
+                SchedulePopup(selectedHabit: selectedHabit)
+                    .transition(.scale)
+                    .zIndex(1)
+            }
         }
+        .animation(.easeInOut, value: showPopup)
         .navigationBarBackButtonHidden()
     }
+
 }
 
 private extension HabitDetailCreation {
@@ -133,8 +153,14 @@ private extension HabitDetailCreation {
     
     var actionButtons: some View {
         HStack {
-            actionButton(label: "Back", action: {})
-            actionButton(label: "Next", action: {})
+            actionButton(label: "Back") {
+                dismiss()
+            }
+
+            actionButton(label: "Next") {
+                showPopup = true
+                // Make all habit changes to selectedHabit and append selected habit to myHabits in my View Model
+            }
         }
     }
     
