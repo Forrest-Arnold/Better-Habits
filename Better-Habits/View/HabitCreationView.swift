@@ -13,7 +13,7 @@ import SwiftUI
 struct HabitCreationView: View {
     @EnvironmentObject var habitVM: HabitVM
     @State private var habitTextFieldName = ""
-    @State private var habitName = Habit(name: "Nothing", color: Color.random()) // No change here
+    @State private var habitName = Habit(name: "Nothing", color: Color.random())
     @State private var selectedColor = Color.random()
     
     // Navigation variables
@@ -26,7 +26,7 @@ struct HabitCreationView: View {
                     currentColor: $selectedColor,
                     showNameView: .constant(true),
                     showGoalView: .constant(false),
-                    habitName: habitName // Binding to habitName is correct here
+                    habitName: habitName
                 )
                 .environmentObject(habitVM)
                 

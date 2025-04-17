@@ -13,6 +13,8 @@ struct CreationTopBar: View {
     @Binding var showNameView: Bool
     @Binding var showGoalView: Bool
     @ObservedObject var habitName: Habit  // Use @ObservedObject here to reflect changes to the Habit class
+    
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         ZStack {
@@ -22,11 +24,16 @@ struct CreationTopBar: View {
 
             VStack(spacing: 30) {
                 HStack {
-                    Image(systemName: "xmark.circle")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .padding(.leading, 20)
-
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .padding(.leading, 20)
+                            .foregroundStyle(.black)
+                    }
+                    
                     VStack {
                         Text("New Habit")
                             .fontWeight(.semibold)

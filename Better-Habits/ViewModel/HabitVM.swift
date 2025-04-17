@@ -11,7 +11,7 @@ import SwiftUI
 class HabitVM: ObservableObject {
     @Published var habitColor = Color.red
     
-    @Published var myHabits = [""]
+    @Published var myHabits = [Habit(name: "Nothing", color: Color.random())]
     
     var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     var daysShorter = ["Su", "M", "T", "W", "Th", "F", "S"]

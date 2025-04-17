@@ -19,6 +19,8 @@ struct SchedulePopup: View {
     let minutes = ["00", "15", "30", "45"]
     let ampm = ["AM", "PM"]
     
+    @Binding var isPresented: Bool
+    
     var body: some View {
         VStack {
             TopHabitName
@@ -119,6 +121,7 @@ private extension SchedulePopup {
         HStack {
             Button {
                 // Naviagate back to my HabitDetailCreation
+                isPresented = false
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -132,6 +135,13 @@ private extension SchedulePopup {
             
             Button {
                 // Close popup or navigate back to MainView
+                selectedHabit.scheduleDays = selectedDays
+                selectedHabit.scheduleHour = selectedHour
+                selectedHabit.scheduleMinute = selectedMinute
+                selectedHabit.scheduleAmPm = selectedAMPM
+                
+                // This should now add all the changed habit data to myHabits in my VM
+                habitVM.myHabits.append(selectedHabit)
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -147,7 +157,6 @@ private extension SchedulePopup {
 
 
 #Preview {
-    SchedulePopup(selectedHabit: Habit(name: "Nothing", color: Color.random()))
+    SchedulePopup(selectedHabit: Habit(name: "Nothing", color: Color.random()), isPresented: .constant(true))
         .environmentObject(HabitVM())
-    
 }

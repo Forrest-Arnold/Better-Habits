@@ -54,7 +54,7 @@ struct HabitDetailCreation: View {
                         showPopup = false
                     }
 
-                SchedulePopup(selectedHabit: selectedHabit)
+                SchedulePopup(selectedHabit: selectedHabit, isPresented: $showPopup)
                     .transition(.scale)
                     .zIndex(1)
             }
@@ -160,6 +160,10 @@ private extension HabitDetailCreation {
             actionButton(label: "Next") {
                 showPopup = true
                 // Make all habit changes to selectedHabit and append selected habit to myHabits in my View Model
+                selectedHabit.leastMost = leastMostOption
+                selectedHabit.time = timeOption
+                selectedHabit.timeNumber = tickerValue
+                selectedHabit.day = dayOption
             }
         }
     }
