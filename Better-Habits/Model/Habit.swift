@@ -20,6 +20,7 @@ class Habit: Identifiable, ObservableObject, Hashable {
     var scheduleHour = 1
     var scheduleMinute = 0
     var scheduleAmPm = 0
+    var streak = 0
     
     init(name: String, color: Color) {
         self.name = name

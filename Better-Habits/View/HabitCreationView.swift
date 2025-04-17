@@ -83,11 +83,12 @@ private extension HabitCreationView {
             actionButton(label: "Cancel", action: {})
             
             NavigationLink(
-                destination: HabitDetailCreation(selectedHabit: habitName).environmentObject(habitVM),
+                destination: HabitDetailCreation(selectedHabit:habitName).environmentObject(habitVM),
                 isActive: $navigateToDetails
             ) {
                 actionButton(label: "Next") {
                     navigateToDetails = true
+                    
                 }
             }
 
@@ -109,7 +110,7 @@ private extension HabitCreationView {
 }
 
 struct PremadeHabitView: View {
-    @ObservedObject var habitVM: HabitVM // No change here
+    @ObservedObject var habitVM: HabitVM
     
     var body: some View {
         VStack {
@@ -124,7 +125,7 @@ struct PremadeHabitView: View {
 
 struct HabitCategoryView: View {
     let title: String
-    @Binding var habits: [Habit] // Correct binding of habits
+    @Binding var habits: [Habit]
 
     var body: some View {
         HStack {

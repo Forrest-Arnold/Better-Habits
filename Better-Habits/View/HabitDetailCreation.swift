@@ -160,6 +160,8 @@ private extension HabitDetailCreation {
             actionButton(label: "Next") {
                 showPopup = true
                 // Make all habit changes to selectedHabit and append selected habit to myHabits in my View Model
+                // FIX NAME *********
+//                selectedHabit.name =
                 selectedHabit.leastMost = leastMostOption
                 selectedHabit.time = timeOption
                 selectedHabit.timeNumber = tickerValue

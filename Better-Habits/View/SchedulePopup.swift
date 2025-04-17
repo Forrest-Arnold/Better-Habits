@@ -20,6 +20,8 @@ struct SchedulePopup: View {
     let ampm = ["AM", "PM"]
     
     @Binding var isPresented: Bool
+    @State private var navigateToMain = false
+
     
     var body: some View {
         VStack {
@@ -76,7 +78,6 @@ private extension SchedulePopup {
     
     var SelectedDaysView: some View {
         HStack {
-            // each selected day text
             ForEach(selectedDays.sorted(), id: \.self) { day in
                 Text(day)
             }
@@ -85,7 +86,6 @@ private extension SchedulePopup {
     
     var TimePickerView: some View {
         HStack {
-            // Hour Picker
             Picker("Hour", selection: $selectedHour) {
                 ForEach(0..<hours.count, id: \.self) { index in
                     Text("\(hours[index])")
@@ -95,7 +95,6 @@ private extension SchedulePopup {
             .pickerStyle(WheelPickerStyle())
             .frame(width: 80, height: 150)
             
-            // Minute Picker
             Picker("Minute", selection: $selectedMinute) {
                 ForEach(0..<minutes.count, id: \.self) { index in
                     Text(minutes[index])
@@ -105,7 +104,6 @@ private extension SchedulePopup {
             .pickerStyle(WheelPickerStyle())
             .frame(width: 80, height: 150)
             
-            // AM/PM Picker
             Picker("AM/PM", selection: $selectedAMPM) {
                 ForEach(0..<ampm.count, id: \.self) { index in
                     Text(ampm[index])
@@ -116,39 +114,56 @@ private extension SchedulePopup {
             .frame(width: 80, height: 150)
         }
     }
-    
+
     var SaveOrCancelView: some View {
-        HStack {
-            Button {
-                // Naviagate back to my HabitDetailCreation
-                isPresented = false
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 120, height: 60)
-                        .foregroundStyle(.gray)
-                        .opacity(0.5)
-                    Text("Cancel")
-                        .foregroundStyle(.black)
-                }
+        VStack {
+            // Hidden NavigationLink to trigger programmatic navigation
+            NavigationLink(
+                destination: MainView()
+                    .environmentObject(habitVM),
+                isActive: $navigateToMain
+            ) {
+                EmptyView()
             }
-            
-            Button {
-                // Close popup or navigate back to MainView
-                selectedHabit.scheduleDays = selectedDays
-                selectedHabit.scheduleHour = selectedHour
-                selectedHabit.scheduleMinute = selectedMinute
-                selectedHabit.scheduleAmPm = selectedAMPM
-                
-                // This should now add all the changed habit data to myHabits in my VM
-                habitVM.myHabits.append(selectedHabit)
-            } label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: 140, height: 60)
-                        .foregroundStyle(.black)
-                    Text("Save Habit")
-                        .foregroundStyle(.white)
+            .hidden()
+
+            HStack {
+                // Cancel button
+                Button {
+                    isPresented = false
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 120, height: 60)
+                            .foregroundStyle(.gray)
+                            .opacity(0.5)
+                        Text("Cancel")
+                            .foregroundStyle(.black)
+                    }
+                }
+
+                // Save Habit button
+                Button {
+                    // Update habit values
+                    selectedHabit.scheduleDays = selectedDays
+                    selectedHabit.scheduleHour = selectedHour
+                    selectedHabit.scheduleMinute = selectedMinute
+                    selectedHabit.scheduleAmPm = selectedAMPM
+
+                    // Save habit to ViewModel
+                    habitVM.myHabits.append(selectedHabit)
+
+                    // Trigger navigation
+                    navigateToMain = true
+                    print(habitVM.myHabits.count)
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 140, height: 60)
+                            .foregroundStyle(.black)
+                        Text("Save Habit")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
         }
