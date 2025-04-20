@@ -64,6 +64,10 @@ class HabitVM: ObservableObject {
     init() {
         allHabits = fitnessHabits + healthHabits + mindHabits + choresHabits + reduceHabits
     }
+    
+    func AddCompleation(habit: Habit) {
+        habit.compleationCount += 1
+    }
 }
 
 extension Color {

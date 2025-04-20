@@ -14,10 +14,6 @@ struct Topbar: View {
     var body: some View {
         VStack(spacing: 12) {
             HStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .frame(width: 40, height: 40)
-                    .foregroundStyle(.gray.opacity(0.6))
-
                 ZStack {
                     Circle()
                         .frame(width: 40, height: 40)
@@ -32,7 +28,6 @@ struct Topbar: View {
                 Text("Habits")
                     .font(.title2)
                     .fontWeight(.semibold)
-                    .offset(x: -15)
 
                 Spacer()
 

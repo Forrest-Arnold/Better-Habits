@@ -21,6 +21,7 @@ class Habit: Identifiable, ObservableObject, Hashable {
     var scheduleMinute = 0
     var scheduleAmPm = 0
     var streak = 0
+    @Published var compleationCount = 0
     
     init(name: String, color: Color) {
         self.name = name

@@ -26,6 +26,9 @@ struct SchedulePopup: View {
     var body: some View {
         VStack {
             TopHabitName
+            DescriptionView
+            Divider()
+                .padding(.bottom)
             DaysView
             SelectedDaysView
             Text("at")
@@ -50,6 +53,12 @@ private extension SchedulePopup {
             .background(selectedHabit.color)
             .padding(.bottom, 30)
             .bold()
+    }
+    
+    var DescriptionView: some View {
+        VStack {
+            Text("Schedule your habit")
+        }
     }
     
     var DaysView: some View {
